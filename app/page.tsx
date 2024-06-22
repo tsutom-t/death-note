@@ -1,11 +1,12 @@
 "use client";
 
+import React, { Suspense } from "react";
 import Form from "@/components/form";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-export default function Home() {
+function HomeContent() {
   const searchParams = useSearchParams();
   const targets = searchParams.get("targets")?.split(",");
   const isBlank = !targets || targets.length === 0;
@@ -38,5 +39,13 @@ export default function Home() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
